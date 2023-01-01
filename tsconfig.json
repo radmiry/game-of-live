@@ -13,5 +13,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["declarations.d.ts", "jestSetupFile.ts"]
+  "include": ["declarations.d.ts", "jestSetupFile.ts", "src/stories"]
 }

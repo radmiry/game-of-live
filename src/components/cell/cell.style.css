@@ -1,0 +1,9 @@
+.cell {
+  height: 20px;
+  border: 1px solid #d6d58e;
+  background-color: #9fc131;
+}
+
+.alive {
+  background: #005c53;
+}

@@ -1,11 +1,9 @@
 import React from 'react';
+import { Main } from './containers/main';
+import './styles/App.scss';
 
 function App() {
-  return (
-    <>
-    <h1>Base React project</h1>
-    </>
-  );
+  return <Main />;
 }
 
 export default App;
