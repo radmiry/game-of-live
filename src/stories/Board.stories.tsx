@@ -1,7 +1,9 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
+import { store } from '../store/store';
 import { Board } from '../components/board/board';
+import { Provider } from 'react-redux';
+import { withMockedStoreDecorator } from './decorators/storeDecorator';
 
 export default {
   title: 'Example/Board',

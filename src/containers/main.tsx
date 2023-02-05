@@ -1,30 +1,35 @@
 import { Board } from '../components/board/board';
-import { useState } from 'react';
-
-import { DEFAULT_NUM_COLS, DEFAULT_NUM_RAWS } from '../consts/boardConsts';
+import { setBoardData, setBoardSize } from '../store/slices/boardSlice';
+import { setRunning } from '../store/slices/gameSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { generateBoard } from '../utils/boardUtil';
 
 export const Main = () => {
-  const [boardSize, setBoardSize] = useState({
-    numCols: DEFAULT_NUM_COLS,
-    numRows: DEFAULT_NUM_RAWS
+  const dispatch = useDispatch();
+
+  const { running } = useSelector((state: RootState) => {
+    return { running: state.game.running };
   });
 
   const handleSet20 = () => {
-    setBoardSize({ numCols: 20, numRows: 20 });
+    dispatch(setBoardData(generateBoard(20, 20, true)));
+    dispatch(setBoardSize({ cols: 20, raws: 20 }));
   };
   const handleSet40 = () => {
-    setBoardSize({ numCols: 40, numRows: 40 });
+    dispatch(setBoardData(generateBoard(40, 40, true)));
+    dispatch(setBoardSize({ cols: 40, raws: 40 }));
+  };
+  const handleClickRunning = () => {
+    dispatch(setRunning());
   };
 
   return (
     <>
       <button onClick={() => handleSet20()}>20x20</button>
       <button onClick={handleSet40}>40x40</button>
-      <Board
-        numCols={boardSize.numCols}
-        numRows={boardSize?.numRows}
-        random={true}
-      />
+      <button onClick={handleClickRunning}>{running ? 'Stop' : 'Start'}</button>
+      <Board />
     </>
   );
 };

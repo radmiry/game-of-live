@@ -1,33 +1,37 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { DEFAULT_NUM_RAWS, DEFAULT_NUM_COLS } from '../../consts/boardConsts';
 import { Cell } from '../cell/cell';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { setBoardData } from '../../store/slices/boardSlice';
+import { generateNextGeneration } from '../../utils/boardUtil';
 
 interface IBoardProps {
   numCols?: number;
   numRows?: number;
-  random?: boolean;
 }
 
-export const Board = (props: IBoardProps) => {
-  const numCols = props.numCols ?? DEFAULT_NUM_COLS;
-  const numRows = props.numRows ?? DEFAULT_NUM_RAWS;
+export const Board: React.FC = (props: IBoardProps) => {
+  const { running, boardSize, boardData } = useSelector((state: RootState) => {
+    return {
+      running: state.game.running,
+      boardSize: state.board.boardSize,
+      boardData: state.board.boardData
+    };
+  });
+
+  const dispatch = useDispatch();
+  const numCols = props.numCols ?? boardSize?.cols ?? DEFAULT_NUM_COLS;
+  const numRows = props.numRows ?? boardSize?.raws ?? DEFAULT_NUM_RAWS;
 
   useEffect(() => {
-    const rows = [];
-    if (props.random) {
-      for (let i = 0; i < numRows; i++) {
-        rows.push(Array.from(Array(numCols), () => Math.random() > 0.7));
-      }
-    } else {
-      for (let i = 0; i < numRows; i++) {
-        rows.push(Array.from(Array(numCols), () => i % 2 === 0));
-      }
-    }
-    setGrid(rows);
-  }, [numCols, numRows, props.random]);
-
-  const defaultGrid = [[false]];
-  const [grid, setGrid] = useState(defaultGrid);
+    setTimeout(() => {
+      if (!running) return;
+      dispatch(
+        setBoardData(generateNextGeneration(boardData, numCols, numRows))
+      );
+    }, 1000);
+  }, [boardData, running]);
 
   return (
     <div
@@ -39,8 +43,10 @@ export const Board = (props: IBoardProps) => {
         background: '#042940'
       }}
     >
-      {grid.map((rows, i) =>
-        rows.map((colum, j) => <Cell key={`${i} ${j}`} isAlive={grid[i][j]} />)
+      {boardData.map((rows, i) =>
+        boardData.map((colum, j) => (
+          <Cell key={`${i} ${j}`} number={boardData[i][j].number} />
+        ))
       )}
     </div>
   );
