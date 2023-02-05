@@ -1,4 +1,4 @@
-import { Board } from '../components/board/board';
+import { BoardC } from '../components/board/boardC';
 import { useState } from 'react';
 
 import { DEFAULT_NUM_COLS, DEFAULT_NUM_RAWS } from '../consts/boardConsts';
@@ -20,7 +20,7 @@ export const Main = () => {
     <>
       <button onClick={() => handleSet20()}>20x20</button>
       <button onClick={handleSet40}>40x40</button>
-      <Board
+      <BoardC
         numCols={boardSize.numCols}
         numRows={boardSize?.numRows}
         random={true}

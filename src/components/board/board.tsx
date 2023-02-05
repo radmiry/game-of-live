@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { DEFAULT_NUM_RAWS, DEFAULT_NUM_COLS } from '../../consts/boardConsts';
 import { Cell } from '../cell/cell';
 
-interface IBoardProps {
-  numCols?: number;
-  numRows?: number;
+export interface IBoardProps {
+  numCols: number;
+  numRows: number;
   random?: boolean;
 }
 
