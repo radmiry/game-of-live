@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: "/src/index.tsx",
     devtool: "source-map",
     resolve: {
         extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
@@ -18,6 +18,7 @@ module.exports = {
     ],
     devServer: {
         port: 3000,
+        historyApiFallback: true,
     },
     module: {
         rules: [
