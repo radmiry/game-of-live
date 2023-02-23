@@ -1,9 +1,8 @@
 import { Board } from '../components/board/board';
-import { setBoardData, setBoardSize } from '../store/slices/boardSlice';
+import { setBoardSize } from '../store/slices/boardSlice';
 import { setRunning } from '../store/slices/gameSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { generateBoard } from '../utils/boardUtil';
 
 export const Main = () => {
   const dispatch = useDispatch();
@@ -13,11 +12,11 @@ export const Main = () => {
   });
 
   const handleSet20 = () => {
-    dispatch(setBoardData(generateBoard(20, 20, true)));
+    //dispatch(setBoardData(generateBoard(20, 20, true)));
     dispatch(setBoardSize({ cols: 20, raws: 20 }));
   };
   const handleSet40 = () => {
-    dispatch(setBoardData(generateBoard(40, 40, true)));
+    //dispatch(setBoardData(generateBoard(40, 40, true)));
     dispatch(setBoardSize({ cols: 40, raws: 40 }));
   };
   const handleClickRunning = () => {
